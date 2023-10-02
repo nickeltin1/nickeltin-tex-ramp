@@ -21,6 +21,8 @@ namespace nickeltin.TexRamp.Editor
         private SerializedProperty _format;
         private SerializedProperty _gradient;
         private SerializedProperty _useAlphaChannel;
+        private SerializedProperty _generateSprite;
+        private SerializedProperty _pixelsPerUnit;
         
         
         private SerializedProperty _rChannel;
@@ -62,6 +64,9 @@ namespace nickeltin.TexRamp.Editor
             _orientation = serializedObject.FindProperty(nameof(TexRampImporter._orientation));
             _wrapMode = serializedObject.FindProperty(nameof(TexRampImporter._wrapMode));
             
+            _generateSprite = serializedObject.FindProperty(nameof(TexRampImporter._generateSprite));
+            _pixelsPerUnit = serializedObject.FindProperty(nameof(TexRampImporter._pixelsPerUnit));
+            
             _format = _rampProp.FindPropertyRelative(nameof(TextureRamp.Format));
             _gradient = _rampProp.FindPropertyRelative(nameof(TextureRamp.Gradient));
             
@@ -87,6 +92,20 @@ namespace nickeltin.TexRamp.Editor
             EditorGUILayout.PropertyField(_wrapMode);
             EditorGUILayout.PropertyField(_filterMode);
             EditorGUILayout.PropertyField(_compression);
+            EditorGUILayout.PropertyField(_generateSprite);
+            if (_generateSprite.boolValue)
+            {
+                using (new EditorGUI.IndentLevelScope())
+                {
+                    var pixelsPerUnit = EditorGUILayout.IntField(
+                        EditorGUIUtility.TrTextContent(_pixelsPerUnit.displayName, _pixelsPerUnit.tooltip), 
+                        _pixelsPerUnit.intValue);
+
+                    pixelsPerUnit = Mathf.Clamp(pixelsPerUnit, 1, int.MaxValue);
+                    _pixelsPerUnit.intValue = pixelsPerUnit;
+                }
+            }
+            
             
             EditorGUILayout.Space();
             

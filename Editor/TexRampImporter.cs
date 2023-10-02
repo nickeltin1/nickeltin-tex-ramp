@@ -26,19 +26,21 @@ namespace nickeltin.TexRamp.Editor
         [SerializeField] internal int _majorResolution = 256;
         [SerializeField] internal int _minorResolution = 32;
         [SerializeField] internal Orientation _orientation = Orientation.Horizontal;
-        [SerializeField] internal TextureWrapMode _wrapMode = TextureWrapMode.Repeat;
+        [SerializeField] internal TextureWrapMode _wrapMode = TextureWrapMode.Clamp;
         [SerializeField] internal FilterMode _filterMode = FilterMode.Bilinear;
-        [SerializeField] internal Compression _compression = Compression.HighQuality;
+        [SerializeField] internal Compression _compression = Compression.Disabled;
+        [SerializeField] internal bool _generateSprite = false;
+        [SerializeField] internal int _pixelsPerUnit = 100;
         
         public override void OnImportAsset(AssetImportContext ctx)
         {
-            var w = _majorResolution;
-            var h = 1;
+            var width = _majorResolution;
+            var height = 1;
 
             if (_orientation == Orientation.Vertical)
             {
-                w = 1;
-                h = _majorResolution;
+                width = 1;
+                height = _majorResolution;
             }
 
             TextureFormat texFormat;
@@ -62,7 +64,7 @@ namespace nickeltin.TexRamp.Editor
                     throw new ArgumentOutOfRangeException();
             }
             
-            var oneDTex = new Texture2D(w,h, texFormat, false)
+            var oneDTex = new Texture2D(width,height, texFormat, false)
             {
                 wrapMode = _wrapMode,
                 filterMode = _filterMode
@@ -78,16 +80,16 @@ namespace nickeltin.TexRamp.Editor
             oneDTex.SetPixels32(pixels);
             oneDTex.Apply();
             
-            w = _majorResolution;
-            h = _minorResolution;
+            width = _majorResolution;
+            height = _minorResolution;
 
             if (_orientation == Orientation.Vertical)
             {
-                w = _minorResolution;
-                h = _majorResolution;
+                width = _minorResolution;
+                height = _majorResolution;
             }
 
-            var twoDTex= Blit(oneDTex, w, h);
+            var twoDTex= Blit(oneDTex, width, height);
 
             var notCompressable = ramp.Format == Format.SingleChannel;
             if (!notCompressable)
@@ -111,7 +113,18 @@ namespace nickeltin.TexRamp.Editor
             DestroyImmediate(oneDTex);
 
 
-            twoDTex.name = Path.GetFileNameWithoutExtension(assetPath) + "(Generated)";
+            var texName = Path.GetFileNameWithoutExtension(assetPath);
+            
+            if (_generateSprite)
+            {
+                var sprite = Sprite.Create(twoDTex, Rect.MinMaxRect(0, 0, width, height), 
+                    new Vector2(0.5f, 0.5f),
+                    _pixelsPerUnit, 0, SpriteMeshType.FullRect);
+                sprite.name = texName + "(Sprite)";
+                ctx.AddObjectToAsset("TexRampSprite", sprite);
+            }
+
+            twoDTex.name = texName + "(Generated)";
             ctx.AddObjectToAsset("TexRamp", twoDTex);
             ctx.SetMainObject(twoDTex);
         }

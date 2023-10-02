@@ -11,5 +11,12 @@
     "name": "nickeltin",
     "email": "valentyn001@gmail.com"
   },
+  "samples": [
+    {
+      "displayName": "Samples",
+      "description": "Just an empty scene to pass asset store validation",
+      "path": "Samples~/Samples"
+    }
+  ],
   "hideInEditor": true
 }
