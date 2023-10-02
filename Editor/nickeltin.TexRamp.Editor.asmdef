@@ -1,0 +1,22 @@
+{
+    "name": "nickeltin.TexRamp.Editor",
+    "rootNamespace": "",
+    "references": [
+        "nickeltin.Core.Editor",
+        "nickeltin.Core.Runtime",
+        "nickeltin.TexRamp.Runtime"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "NICKELTIN_INSTALLED"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
