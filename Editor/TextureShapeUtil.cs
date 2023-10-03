@@ -58,5 +58,25 @@ namespace nickeltin.TextureShapes.Editor
             instance.Shape = data;
             return instance;
         }
+
+        internal static AnimationCurve BellCurve()
+        {
+            return new AnimationCurve(new[]
+            {
+                new Keyframe(0, 0),
+                new Keyframe(0.5f, 1),
+                new Keyframe(1, 0)
+            });
+        }
+        
+        internal static AnimationCurve LeftSteep()
+        {
+            return new AnimationCurve(new[]
+            {
+                new Keyframe(0, 0),
+                new Keyframe(0.01f, 1),
+                new Keyframe(1, 1)
+            });
+        }
     }
 }

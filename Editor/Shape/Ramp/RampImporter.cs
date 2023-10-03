@@ -1,13 +1,11 @@
-﻿using System.IO;
-using UnityEditor.AssetImporters;
-using UnityEngine;
+﻿using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace nickeltin.TextureShapes.Editor
 {
     internal class RampImporter : ShapeImporter
     {
-        public override void OnImportAsset(ShapeAssetImporter mainImporter, AssetImportContext ctx, 
+        public override Texture2D GenerateTexture(ShapeAssetImporter mainImporter,
             TextureShape shape, TextureFormat texFormat)
         {
             var majorResolution = mainImporter._majorResolution;
@@ -48,27 +46,14 @@ namespace nickeltin.TextureShapes.Editor
                 height = majorResolution;
             }
 
+            // Blitting to increase resolution in one dimension,
+            // because we actually generating single pixels line but need 2D texture.
             var twoDTex = ShapeAssetImporter.Blit(oneDTex, width, height);
-            
-            mainImporter.Compress(twoDTex, shape);
             
             twoDTex.Apply();
             Object.DestroyImmediate(oneDTex);
-            
-            var texName = Path.GetFileNameWithoutExtension(mainImporter.assetPath);
-            
-            if (mainImporter._generateSprite)
-            {
-                var sprite = Sprite.Create(twoDTex, Rect.MinMaxRect(0, 0, width, height), 
-                    new Vector2(0.5f, 0.5f),
-                    mainImporter._pixelsPerUnit, 0, SpriteMeshType.FullRect);
-                sprite.name = texName + "(Sprite)";
-                ctx.AddObjectToAsset("TexRampSprite", sprite);
-            }
 
-            twoDTex.name = texName + "(Generated)";
-            ctx.AddObjectToAsset("TexRamp", twoDTex);
-            ctx.SetMainObject(twoDTex);
+            return twoDTex;
         }
     }
 }

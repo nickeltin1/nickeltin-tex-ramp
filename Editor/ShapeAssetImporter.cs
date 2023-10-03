@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using UnityEditor.AssetImporters;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
@@ -18,8 +19,8 @@ namespace nickeltin.TextureShapes.Editor
             LowQuality
         }
         
-        [SerializeField] internal int _majorResolution = 256;
-        [SerializeField] internal int _minorResolution = 32;
+        [SerializeField] internal int _majorResolution = 512;
+        [SerializeField] internal int _minorResolution = 512;
         [SerializeField] internal TextureWrapMode _wrapMode = TextureWrapMode.Clamp;
         [SerializeField] internal FilterMode _filterMode = FilterMode.Bilinear;
         [SerializeField] internal Compression _compression = Compression.Disabled;
@@ -52,7 +53,25 @@ namespace nickeltin.TextureShapes.Editor
             }
             
             var importer = container.Shape.GetImporter();
-            importer.OnImportAsset(this, ctx, shape, texFormat);
+            var tex = importer.GenerateTexture(this, shape, texFormat);
+            
+            Compress(tex, shape);
+            
+            var texName = Path.GetFileNameWithoutExtension(assetPath);
+            
+            if (_generateSprite)
+            {
+                var sprite = Sprite.Create(tex, Rect.MinMaxRect(0, 0, tex.width, tex.height), 
+                    new Vector2(0.5f, 0.5f),
+                    _pixelsPerUnit, 0, SpriteMeshType.FullRect);
+                sprite.name = texName + "(Sprite)";
+                ctx.AddObjectToAsset("TexRampSprite", sprite);
+            }
+            
+            
+            tex.name = texName + "(Generated)";
+            ctx.AddObjectToAsset("TextureShape", tex);
+            ctx.SetMainObject(tex);
         }
 
         public void Compress(Texture2D tex, TextureShape shape)

@@ -18,18 +18,8 @@ namespace nickeltin.TextureShapes.Editor
                 Inverted = inverted;
             }
 
-            public static Channel Default
-            {
-                get
-                {
-                    return new Channel(new AnimationCurve(new []
-                    {
-                        new Keyframe(0, 0),
-                        new Keyframe(0.5f, 1),
-                        new Keyframe(1, 0)
-                    }), false);
-                }
-            }
+            public static Channel Bell => new(TextureShapeUtil.BellCurve(), false);
+            public static Channel LeftSteep => new(TextureShapeUtil.LeftSteep(), false);
         }
         
         public override Type GetImporterType() => typeof(RampImporter);
@@ -38,10 +28,10 @@ namespace nickeltin.TextureShapes.Editor
 
         public ShapeOrientation Orientation = ShapeOrientation.Horizontal;
         public Gradient Gradient = new Gradient();
-        public Channel RChannel = Channel.Default;
-        public Channel GChannel = Channel.Default;
-        public Channel BChannel = Channel.Default;
-        public Channel AChannel = Channel.Default;
+        public Channel RChannel = Channel.Bell;
+        public Channel GChannel = Channel.Bell;
+        public Channel BChannel = Channel.Bell;
+        public Channel AChannel = Channel.Bell;
         
         public Color Evaluate(float t)
         {

@@ -1,5 +1,4 @@
-﻿using UnityEditor.AssetImporters;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace nickeltin.TextureShapes.Editor
 {
@@ -10,7 +9,6 @@ namespace nickeltin.TextureShapes.Editor
             
         }
 
-        public abstract void OnImportAsset(ShapeAssetImporter mainImporter, AssetImportContext ctx, TextureShape shape,
-            TextureFormat texFormat);
+        public abstract Texture2D GenerateTexture(ShapeAssetImporter mainImporter, TextureShape shape, TextureFormat texFormat);
     }
 }
