@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 4eb63ac04f87f974eaa111ca6e347991
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 22d51c9b15424c44835a25318f6ddc12, type: 3}
+  _majorResolution: 512
+  _minorResolution: 64
+  _wrapMode: 1
+  _filterMode: 0
+  _compression: 2
+  _generateSprite: 0
+  _pixelsPerUnit: 100

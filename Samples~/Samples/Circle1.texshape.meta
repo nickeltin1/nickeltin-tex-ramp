@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: be188ee2837de624e937a37832b5eafd
+guid: a064e45f6fda1774bb7597ec9b77d029
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -7,12 +7,11 @@ ScriptedImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-  script: {fileID: 11500000, guid: eeb362bc36184984bd094c1faada4cd6, type: 3}
-  _majorResolution: 256
-  _minorResolution: 32
-  _orientation: 0
+  script: {fileID: 11500000, guid: 22d51c9b15424c44835a25318f6ddc12, type: 3}
+  _majorResolution: 512
+  _minorResolution: 512
   _wrapMode: 1
   _filterMode: 1
-  _compression: 1
+  _compression: 0
   _generateSprite: 0
   _pixelsPerUnit: 100

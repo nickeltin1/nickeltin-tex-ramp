@@ -57,6 +57,11 @@ namespace nickeltin.TextureShapes.Editor
             
             Compress(tex, shape);
             
+            if (texFormat == TextureFormat.RGBA32 || (texFormat == TextureFormat.Alpha8))
+            {
+                tex.alphaIsTransparency = true;
+            }
+            
             var texName = Path.GetFileNameWithoutExtension(assetPath);
             
             if (_generateSprite)
@@ -107,16 +112,12 @@ namespace nickeltin.TextureShapes.Editor
                 wrapMode = tex.wrapMode,
                 filterMode = tex.filterMode,
             };
-            
-            if (tex.format == TextureFormat.RGBA32)
-            {
-                blitTex.alphaIsTransparency = true;
-            }
 
             var rtDesc = new RenderTextureDescriptor(newWidth, newHeight, GraphicsFormat.R8G8B8A8_UNorm, 0, 0)
             {
-                sRGB = false
+                sRGB = false, 
             };
+            
             var rt = RenderTexture.GetTemporary(rtDesc);
             rt.wrapMode = tex.wrapMode;
             rt.filterMode = tex.filterMode;

@@ -1,8 +1,8 @@
 {
-  "name": "com.nickeltin.tex-ramp",
-  "version": "0.0.1",
-  "displayName": "nickeltin-texture-ramp",
-  "description": "Simle solution for texture ramps that can be adjusted in editor and used in materials",
+  "name": "com.nickeltin.tex-shapes",
+  "version": "0.0.2",
+  "displayName": "nickeltin-texture-shapes",
+  "description": "Generate simple textures that can be adjusted in editor, Ramps, Circles, Quads",
   "unity": "2021.1",
   "keywords": [
     "nickeltin"

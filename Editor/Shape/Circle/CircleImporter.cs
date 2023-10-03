@@ -2,6 +2,9 @@
 
 namespace nickeltin.TextureShapes.Editor
 {
+    /// <summary>
+    /// TODO: figure out AA
+    /// </summary>
     internal class CircleImporter : ShapeImporter
     {
         public override Texture2D GenerateTexture(ShapeAssetImporter mainImporter, TextureShape shape, TextureFormat texFormat)
@@ -33,17 +36,16 @@ namespace nickeltin.TextureShapes.Editor
                     pixels[y * textureWidth + x] = circle.Evaluate(normalizedDistance);
                 }
             }
-
             
-              
+            
+            tex.SetPixels32(pixels);
+            tex.Apply();
+
             if (texFormat == TextureFormat.RGBA32)
             {
                 tex.alphaIsTransparency = true;
             }
             
-            tex.SetPixels32(pixels);
-            tex.Apply();
-
             return tex;
         }
     }

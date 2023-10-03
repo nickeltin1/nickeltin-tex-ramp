@@ -1,10 +1,14 @@
 {
-    "name": "nickeltin.TexRamp.Runtime",
+    "name": "nickeltin.TextureShapes.Editor",
     "rootNamespace": "",
     "references": [
-        "nickeltin.Core.Runtime"
+        "nickeltin.Core.Editor",
+        "nickeltin.Core.Runtime",
+        "nickeltin.TextureShapes.Runtime"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
